@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-#a_leapyears3 a_leapyears4 a_leapyears6 a_leapyears7 a_leapyears8 a_leapyears80
+#$ perl 4_3.pl data/a_leapyears3 data/a_leapyears4 data/a_leapyears6 data/a_leapyears7 data/a_leapyears8 data/a_leapyears80
 $num_files=$#ARGV;
 my @counted_lines =();
 foreach (@ARGV){
