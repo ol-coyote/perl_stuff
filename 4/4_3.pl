@@ -4,7 +4,7 @@
 $num_files=$#ARGV;
 my @counted_lines =();
 foreach (@ARGV){
-	open(FILEREAD, "$_");
+	open(FILEREAD, "$_") || die "error: $!";
 	$count=0;
 	while(<FILEREAD>){
 		$count++;
