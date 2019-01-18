@@ -1,0 +1,26 @@
+#!/usr/bin/perl
+#
+#	sortvals
+#
+
+sub sort_by_balance
+{
+	$accts{$a} <=> $accts{$b};
+}
+
+%accts = (
+	  "Smith", 10000,
+	  "Jones", 20000, 
+	  "Wilson", 5000
+	 );
+
+@keys = sort sort_by_balance keys(%accts);
+
+foreach (@keys)
+{
+	print "$_\'s balance is $accts{$_}\n";
+}
+
+		 
+
+

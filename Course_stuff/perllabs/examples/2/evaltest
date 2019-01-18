@@ -1,0 +1,14 @@
+#!/usr/bin/perl
+#
+#	evaltest
+#
+
+$a = 10;
+$b = 20;
+$x = '$z = $a + $b';
+print "$x\n";
+print eval($x), "\n";
+print "$z\n";
+
+
+

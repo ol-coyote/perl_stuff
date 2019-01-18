@@ -1,0 +1,13 @@
+#!/usr/bin/perl
+#
+#	utime
+#
+
+$now = time;
+@files = (chmodtextfiles, copyfiles);
+
+#  Set access time to current time
+#  Set modification time to one day ago
+
+$num = utime ($now, $now - (3600 * 24), @files);
+print "Times changed for $num files\n";

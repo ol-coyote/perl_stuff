@@ -1,0 +1,12 @@
+#!/usr/bin/perl
+#
+#	oneway
+#
+print "Enter a number: ";
+$num = <STDIN>;
+chop($num);
+
+if ($num == 0) 
+{
+    print "You entered zero.\n"
+}

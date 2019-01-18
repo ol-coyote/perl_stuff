@@ -1,0 +1,12 @@
+#!/usr/bin/perl
+#
+#       subs1
+#
+sub1;
+sub1();
+&sub1;
+&sub1();
+sub sub1
+{
+        print "reached sub1\n";
+}

@@ -1,0 +1,25 @@
+0101,George Boole,Atlanta,GA,30303,0,10000
+0102,Noam Chomsky,Baltimore,MD,21201,0,10000
+0103,Gregory Chaitin,Boston,MA,02108,0,10000
+0104,Alonzo Church,Chicago,IL,60601,0,10000
+0105,E.F. Codd,Cincinnati,OH,45202,0,10000
+0106,John Conway,Cleveland,OH,44102,0,10000
+0107,Stephen Cook,Columbus,OH,43201,0,10000
+0108,George Danzig,Dallas,TX,75201,0,10000
+0109,Martin Hellman,Denver,CO,80209,0,10000
+0110,Ralph Merkle,Las Vegas,NV,89109,0,10000
+0111,Whitfield Diffie,Miami,FL,33130,0,90000
+0112,Martin Gardner,New York,NY,10007,0,10000
+0113,David Huffman,Orlando,FL,32839,0,10000
+0114,Donald Knuth,Washington,DC,20036,0,10000
+0115,George Kruskal,San Francisco,CA,94108,0,10000
+0116,Warren McCullough,Los Angeles,CA,90071,0,10000
+0117,Walter Pitts,San Diego,CA,92108,0,10000
+0118,Bertrand Russell,Seattle,WA,98107,0,10000
+0119,Arthur Samuel,Portland,OR,97210,0,10000
+0120,Alan Turing,Kansas City,KS,66112,0,10000
+0121,John Von Neumann,Phoenix,AZ,85008,0,10000
+0122,Hermann Hollerith,Pittsburgh,PA,15112,0,10000
+0123,Charles Babbage,Philadelphia,PA,19113,0,10000
+0124,Blaise Pascal,New Orleans,LA,70119,0,10000
+0125,John Napier,Milwaukee,WI,53209,0,10000

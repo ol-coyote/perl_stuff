@@ -1,0 +1,15 @@
+#!/usr/bin/perl
+#
+#	anon
+#
+
+@data = (10, 20, 30);
+$refd = \@data;
+print "$$refd[0]\n";
+print "$$refd[1]\n";
+
+$refa = [100, 200, 300];
+print "$$refa[0]\n";
+print "$$refa[1]\n";
+
+

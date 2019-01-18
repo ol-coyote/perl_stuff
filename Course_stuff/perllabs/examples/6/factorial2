@@ -1,0 +1,22 @@
+#!/usr/bin/perl
+#
+#	factorial2
+#
+		
+sub factorial
+{
+	my($f) = @_;     # parens important
+	my $result = 1;		
+	while($f > 1) 
+	{
+		$result *= $f;
+		$f--;
+	}
+	return $result;
+}
+
+print "Enter a number -> ";
+chop($number = <STDIN>);
+
+$answer = &factorial($number);
+print "$number factorial is $answer\n";	

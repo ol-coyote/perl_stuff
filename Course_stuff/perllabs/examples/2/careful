@@ -1,0 +1,10 @@
+#!/usr/bin/perl
+#
+#       careful
+#
+
+$a = (5 + 2) * 4;
+print "$a\n";
+
+$b = (5 + 2) x 4;
+print "$b\n";

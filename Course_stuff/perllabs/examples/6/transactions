@@ -1,0 +1,12 @@
+#!/usr/bin/perl
+#
+#	transactions
+#		
+
+use Banking;
+
+Banking::deposit(50);
+Banking::withdraw(50);
+
+print "$Banking::NAME\n";
+

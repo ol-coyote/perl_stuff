@@ -1,0 +1,16 @@
+$t =  [ [first, row, vals], 
+        [second, row, vals], 
+        [third, row, vals] 
+      ];
+
+print "$t \n";          #ARRAY (0xbe982c)
+
+print "$$t[0]\n";       #ARRAY (0xbe112c)
+print "$$t[1]\n";       #ARRAY (0xbe142c)
+print "$$t[2]\n";       #ARRAY (0xbe172c)
+
+print "$$t[0][0]\n";    #prints 'first'
+print "$$t[0][1]\n";    #prints 'row'
+print "$$t[0][2]\n";    #prints 'vals'
+
+print "@{$$t[0]}\n";    #'first row vals'

@@ -1,0 +1,19 @@
+#!/usr/bin/perl
+#
+#       integer
+#
+
+sub is_int
+{   
+    my $arg = $_[0];
+    $arg =~ /^[+-]?\d+$/;
+}
+
+while (1)
+{   
+    print "enter an integer: ";
+    chomp($val = <STDIN>);
+    last if ( is_int($val) );
+}
+
+print "$val * $val is: ", $val * $val, "\n";

@@ -1,0 +1,8 @@
+#!/usr/bin/perl
+#       
+#       sorted
+#
+@names = (mike, carla, bob, joe, jane);
+@sorted = sort(@names);
+print "@names\n";
+print "@sorted\n";

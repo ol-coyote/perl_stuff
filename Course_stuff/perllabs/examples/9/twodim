@@ -1,0 +1,8 @@
+@twodim = ([10, 20],
+           [30, 40], 
+           [50, 60] 
+          );
+
+print "@twodim\n";         # prints references
+print "@{$twodim[0]}\n";   # 10 20 
+print $twodim[0][0];       # 10

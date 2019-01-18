@@ -1,0 +1,13 @@
+#!/usr/bin/perl
+#
+#	showprint
+#
+
+$rec = 1;
+while($line = <STDIN>)
+{
+	chop $line;
+	print "$rec", "\t", "\U$line\E", "\n";
+	print "\t\L$line\E\n";
+	$rec++;
+}

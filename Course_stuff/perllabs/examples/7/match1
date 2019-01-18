@@ -1,0 +1,9 @@
+#!/usr/bin/perl
+#
+#       match1
+#
+
+while ($line = <STDIN>)
+{
+    print "$.\t$line"if ($line =~ /the/ );
+}

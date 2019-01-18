@@ -1,0 +1,18 @@
+#
+#	xoption
+#
+
+print "do not\n";
+print "execute\n";
+print "just yet\n";
+
+#!/usr/bin/perl
+
+print "execute this\n";
+print "and this\n";
+print "and this\n";
+
+__END__
+print "but not this\n";
+print "nor this\n";
+print "nor this\n";

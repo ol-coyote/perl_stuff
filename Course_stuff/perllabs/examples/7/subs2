@@ -1,0 +1,9 @@
+#!/usr/bin/perl
+while(<DATA>)
+{
+        s/(.*) (.*)/$2, $1/;
+        print;
+}
+__END__
+Michael Smith
+Alice Jones

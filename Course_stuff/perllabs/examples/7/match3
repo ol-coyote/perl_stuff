@@ -1,0 +1,9 @@
+#!/usr/bin/perl
+#
+#       match3
+#
+
+while (<STDIN>)
+{
+    print "$.\t$_" if ( /^the/ );
+}	

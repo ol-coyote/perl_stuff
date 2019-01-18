@@ -1,0 +1,11 @@
+#!/usr/bin/perl
+#
+#       changecase
+#
+
+while(<STDIN>)
+{
+        tr/aeiou/AEIOU/;
+        print;
+}
+

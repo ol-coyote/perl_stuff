@@ -1,0 +1,23 @@
+#!/usr/bin/perl
+#
+#       seek
+#
+
+open(FILE, "+< myfile");
+while($line = <FILE>)
+{
+    print $line;
+}
+
+seek(FILE, 0, 0);
+print "Rewinding\n";
+print FILE "hello";
+
+seek(FILE, 0, 0);
+while($line = <FILE>)
+{
+    print $line;
+}
+
+close FILE;
+

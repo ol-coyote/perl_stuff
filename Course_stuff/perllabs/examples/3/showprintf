@@ -1,0 +1,10 @@
+#!/usr/bin/perl
+#
+#	showprintf
+#
+
+$nm = "mike";
+$p = 493.62;
+$id = 325;
+
+printf("nm:\t%-10spay:\t%+.2f\nid:\t%010d\n", $nm, $p, $id);

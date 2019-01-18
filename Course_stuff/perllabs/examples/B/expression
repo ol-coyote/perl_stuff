@@ -1,0 +1,9 @@
+#!/usr/bin/perl
+#
+#       expression
+#
+
+while(<STDIN>)
+{
+     	print eval ($1), "\n" if (  /\((.*)\)/  );
+}

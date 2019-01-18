@@ -1,0 +1,24 @@
+#!/usr/bin/perl
+#
+#	chmodtextfiles
+#
+
+die "usage: $0 dir\n" if $#ARGV != 0; 
+
+opendir(DIRECT,$ARGV[0]) || die;
+
+$ct = 0;
+@files = readdir(DIRECT);
+chdir($ARGV[0]);
+
+foreach $file (@files)
+{
+    if (-T $file) 	# Text files
+    {
+        $ct += chmod(0777, $file); 
+    }
+}
+
+closedir(DIRECT);
+
+print "Permissions changed on $ct text files\n";

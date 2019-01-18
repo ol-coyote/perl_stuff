@@ -1,0 +1,11 @@
+#!/usr/bin/perl
+#
+#    ending
+#
+
+die "for no reason\n";
+
+sub END
+{
+    print "From the END block\n";
+}

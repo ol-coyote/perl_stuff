@@ -1,0 +1,491 @@
+#!/usr/bin/perl
+#
+# /training/etc Perl Programming project: play blackjack
+#
+# This isn't exactly the "simple" blackjack program like the sample.
+# However, it's in my nature to overkill a problem (anything worth
+# doing is worth overdoing)...
+#
+# If a "blackjack.options" file is present in the current directory,
+# or the path to it is specified on the command line, it is read for
+# game options. Options are not changeable while the game is in
+# progress. (Yet. I may change my mind before I'm done with this.)
+# Current directory takes precedence.
+#
+# Version history:
+#
+# 01 Sep 05  E. Mascardo  Created original
+#
+########################################################################
+
+die "Usage: $0 [options-file]\n" if $#ARGV>0;
+
+srand();
+
+sub shuffle
+{
+# Simulate shuffling the cards in the shoe. We don't predefine the
+# dealing order -- we just reset the number of each card in the shoe.
+# (Would that make this Schroedinger's Shoe -- the cards have no value
+# until they come out of the shoe and someone looks at them?)
+	my $card;
+	foreach $card (1..52)
+	{
+	$shoecards{$card}=$numdecks;
+	}
+	print "Shuffling the cards...\n";
+}
+
+sub displayhand
+{
+# Print out the cards being held.
+# Since the dealer's hole card is kept in a separate variable, we
+# don't have to do too many backflips.
+	my $card;
+	my @hand=@_;
+	my $which=shift(@hand); # dealer or player
+	if ($which eq "dealerhole")
+	{
+		print "Dealer holds: (HOLE) ";
+	}
+	elsif ($which eq "dealer")
+	{
+		print "Dealer holds: ";
+	}
+	else
+	{
+		print "You hold: ";
+	}
+	foreach $card (@hand)
+	{
+		print "$cardname{$card} ";
+	}
+	print "\n";
+}
+
+sub handvalue
+{
+# Calculates the value of a hand. Aces make things a little more
+# difficult. The dealer's hole card is passed along with the other
+# visible cards, so there's no need to distinguish whose hand it is,
+# unlike in displayhand().
+	my $card;
+	my $has_aces=0;
+	my $total=0;
+	my @hand=@_;
+	foreach $card (@hand)
+	{
+		if ($card % 13 == 1)
+		{
+			$has_aces++;
+			$soft_hand=1;
+			if ($has_aces==1)
+			{
+				$total+=11;  # assumed for now
+			}
+			else
+			{
+				$total+=1;   # second ace and beyond will always be 1
+			}
+		}
+		else
+		{
+			$total+=$cardvalue{$card};
+		}
+	}
+	if ($total > 21 and $has_aces > 0)
+	{
+		$total-=10; # count the first ace as 1
+		$soft_hand=0;
+	}
+	return $total;
+}
+
+sub dealcard
+{
+# Deal a card from the shoe to the given hand.
+	@hand=@_;
+	my $card;
+	while (1) # not infinite, as we'll see
+	{
+		$card=(int(rand(52))+1);
+		if ($shoecards{$card} > 0)
+		{
+			# There's at least one of that card still in the shoe.
+			# Take it out, put it into the hand, and drop out of the loop.
+			$shoecards{$card}--;
+			push(@hand,$card);
+			last;
+		}
+	}
+	return @hand;
+}
+
+sub shoe_total
+{
+# Return the number of cards left in the shoe.
+	my ($card,$num_cards);
+	foreach $card (1..52)
+	{
+		$num_cards+=$shoecards{$card};
+	}
+	return $num_cards;
+}
+
+sub shoe_ok
+{
+# Check to see if there are enough cards in the shoe.
+# Returns false if we're below the minimum.
+	if ( &shoe_total < $min_cards)
+	{
+		return 0;
+	}
+	return 1;
+}
+
+# Define some defaults for game options. These are overridden by the
+# options file if it exists. Many of the default "allow" options are
+# unimplemented game features...
+$starting_wallet=200;   # Start with this much money.
+$min_bet=5;             # Minimum bet.
+$numdecks=1;            # One deck only.
+$shoe_threshold=20;     # Reshuffle at 20% of the original shoe contents.
+$bj_mult=1.5;           # Blackjack pays 3:2.
+$dealer_hit_s17=1;      # Dealer hits on a soft 17.
+$dealer_bj_first=0;     # Dealer blackjack doesn't prevent player from playing (and insuring).
+$allow_double=0;        # No doubling down.
+$allow_split=0;         # No splitting.
+$allow_10_diff_split=0; # No splits of non-identical 10s.
+$allow_insurance=0;     # No insurance.
+
+if (-f "blackjack.options")
+{
+	open (OPTIONS,"<","blackjack.options") or warn "Cannot open options file blackjack.options: $!\n";
+	while (<OPTIONS>)
+	{
+		next if (/^#/);
+		if (/^\$/)
+		{
+			eval "$_";   # a gross security hole, admittedly
+			die "Bad option: $@\n" if $@;
+		}
+	}
+	print "Read in options from blackjack.options.\n";
+}
+elsif ($#ARGV==0)
+{
+	open (OPTIONS,"<",$ARGV[0]) or warn "Cannot open options file $ARGV[0]: $!\n";
+	while (<OPTIONS>)
+	{
+		next if (/^#/);
+		if (/^\$/)
+		{
+			eval "$_";   # a gross security hole, admittedly
+			die "Bad option: $@\n" if $@;
+		}
+	}
+	print "Read in options from $ARGV[0].\n";
+}
+
+# TODO: Sanity checks on the read-in options.
+
+# A couple of derived variables for ease of use.
+$wallet=$starting_wallet;
+$total_cards=$numdecks*52;
+$min_cards=int($total_cards*($shoe_threshold/100));
+
+# Define the card names and values.
+# The order is a little unorthodox, but it allows for easy matching of card
+# values for non-identical 10 splits (if allowed) -- if the card number % 13 is
+# equal, they have the same face value. Also helps looking for aces for the
+# soft-17 check.
+
+%cardname=	(
+		1 => "A-S", 2 => "K-S", 3 => "Q-S", 4 => "J-S",
+		5 => "10-S", 6 => "9-S", 7 => "8-S", 8 => "7-S",
+		9 => "6-S", 10 => "5-S", 11 => "4-S", 12 => "3-S", 13 => "2-S",
+		14 => "A-H", 15 => "K-H", 16 => "Q-H", 17 => "J-H",
+		18 => "10-H", 19 => "9-H", 20 => "8-H", 21 => "7-H",
+		22 => "6-H", 23 => "5-H", 24 => "4-H", 25 => "3-H", 26 => "2-H",
+		27 => "A-D", 28 => "K-D", 29 => "Q-D", 30 => "J-D",
+		31 => "10-D", 32 => "9-D", 33 => "8-D", 34 => "7-D",
+		35 => "6-D", 36 => "5-D", 37 => "4-D", 38 => "3-D", 39 => "2-D",
+		40 => "A-C", 41 => "K-C", 42 => "Q-C", 43 => "J-C",
+		44 => "10-C", 45 => "9-C", 46 => "8-C", 47 => "7-C",
+		48 => "6-C", 49 => "5-C", 50 => "4-C", 51 => "3-C", 52 => "2-C"
+		);
+
+%cardvalue=	(
+		1 => "A", 2 => "10", 3 => "10", 4 => "10",
+		5 => "10", 6 => "9", 7 => "8", 8 => "7",
+		9 => "6", 10 => "5", 11 => "4", 12 => "3", 13 => "2",
+		14 => "A", 15 => "10", 16 => "10", 17 => "10",
+		18 => "10", 19 => "9", 20 => "8", 21 => "7",
+		22 => "6", 23 => "5", 24 => "4", 25 => "3", 26 => "2",
+		27 => "A", 28 => "10", 29 => "10", 30 => "10",
+		31 => "10", 32 => "9", 33 => "8", 34 => "7",
+		35 => "6", 36 => "5", 37 => "4", 38 => "3", 39 => "2",
+		40 => "A", 41 => "10", 42 => "10", 43 => "10",
+		44 => "10", 45 => "9", 46 => "8", 47 => "7",
+		48 => "6", 49 => "5", 50 => "4", 51 => "3", 52 => "2"
+		);
+
+# Let's play the game.
+
+&shuffle;
+
+MAIN: while ( $wallet >= $min_bet)
+{
+	print "\n";
+	&shoe_ok or &shuffle;
+	@playerhand=();
+	@dealerhand=();
+	# There's only ever going to be one hole card, but since dealcard() uses arrays,
+	# we'll have an array with one element.
+	@dealerhole=();
+
+	print "You have $wallet in chips. The minimum bet is $min_bet.\n";
+	print "Bet 0 (or any non-number) to quit.\n";
+	while (1)
+	{
+		print "How much will you bet? ";
+		chomp($bet=<STDIN>);
+		if ($bet==0)
+		{
+			print "\n";
+			last MAIN;
+		}
+		elsif ($bet < $min_bet)
+		{
+			print "That's less than the minimum ($min_bet).\n";
+		}
+		elsif ($bet > $wallet)
+		{
+			print "You only have $wallet to bet.\n";
+		}
+		else
+		{
+			last;
+		}
+	}
+	$wallet-=$bet;
+	print "\n";
+
+	# Strictly speaking, we're not dealing cards in the "proper" order.
+	# However, since there's no predetermined order for the cards in the shoe,
+	# nobody's going to notice.
+	$playerbj=0;
+	@playerhand=&dealcard(@playerhand);
+	@playerhand=&dealcard(@playerhand);
+	&displayhand("player",@playerhand);
+	$playertotal=&handvalue(@playerhand);
+	print "Your total: $playertotal\n";
+	print "\n";
+
+	$dealerbj=0;
+	@dealerhand=&dealcard(@dealerhand);
+	@dealerhole=&dealcard(@dealerhole);
+	&displayhand("dealerhole",@dealerhand);
+	$dealertotal=&handvalue(@dealerhole,@dealerhand);
+	$dealershows=&handvalue(@dealerhand);
+	print "Dealer shows: $dealershows\n";
+	print "\n";
+
+	# Blackjack checks. Dealer goes first if house rules say so.
+	if ($dealertotal==21 and $dealer_bj_first==1)
+	{
+		print "Dealer has blackjack! You lose.\n";
+		# Show the hand in case someone's counting cards...
+		&displayhand("dealer",@dealerhole,@dealerhand);
+		next;
+	}
+
+	$playerdone=0;
+	if ($playertotal==21 and $dealer_bj_first==0)
+	{
+		print "You have blackjack!\n";
+		$playerbj=1;
+		$playerdone=1;
+	}
+	$playerbust=0;
+	$can_double=0;
+	if (($allow_double==1 and ($playertotal==10 or $playertotal==11))
+	    or ($allow_double==2))
+	{
+		$can_double=1;
+	}
+	$can_split=$allow_split;
+	$ask_insurance=0;
+	if ($allow_insurance==1 and ($dealerhand[0] % 13 == 1))
+	{
+		$ask_insurance=1;
+	}
+
+	# Player decision loop.
+	while ($playerdone==0)
+	{
+		# No insurance yet.
+		print "Your options: (H)it (S)tand ";
+		if ($can_double==1)
+		{
+			print "(D)ouble down ";
+		}
+		if ($can_split==1)
+		{
+			print "s(P)lit";
+		}
+		print "\n";
+		print "Your play? ";
+		chomp($play=<STDIN>);
+		if ($play =~ /^[sS]/)
+		{
+			print "Standing with $playertotal.\n";
+			$playerdone=1;
+		}
+		elsif ($play =~ /^[hH]/)
+		{
+			print "Taking a card.\n";
+			$can_double=0;
+			$can_split=0;
+			@playerhand=&dealcard(@playerhand);
+			&displayhand("player",@playerhand);
+			$playertotal=&handvalue(@playerhand);
+			print "Your total: $playertotal\n";
+			if ($playertotal > 21)
+			{
+				print "You busted.\n";
+				print "\n";
+				$playerbust=1;
+				$playerdone=1;
+			}
+			elsif ($playertotal==21)
+			{
+				print "Time to stand.\n";
+				print "\n";
+				$playerdone=1;
+			}
+		}
+		# Don't bother with double or split yet.
+		else
+		{
+			print "Invalid command.\n";
+		}
+	}
+
+	# Dealer handling.
+	$dealerdone=0;
+	$dealerbust=0;
+	# Move the hole card to the dealer's hand for ease of handling.
+	unshift(@dealerhand,$dealerhole[0]);
+	&displayhand("dealer",@dealerhand);
+	$soft_hand=0;
+	$dealertotal=&handvalue(@dealerhand); # will set soft_hand
+	print "Dealer's total: $dealertotal\n";
+	if ($dealertotal==21)
+	{
+		$dealerbj=1;
+		$dealerdone=1;
+		print "Dealer has blackjack!\n";
+	}
+	if ($playerbust==1 or $playerbj==1)
+	{
+		$dealerdone=1;
+	}
+
+	while ($dealerdone==0)
+	{
+		if ($dealertotal > 21)
+		{
+			print "Dealer has busted.\n";
+			print "\n";
+			$dealerbust=1;
+			$dealerdone=1;
+		}
+		elsif ($dealertotal > 17)
+		{
+			print "Dealer stands.\n";
+			print "\n";
+			$dealerdone=1;
+		}
+		elsif ($dealertotal < 17)
+		{
+			print "\n";
+			print "Dealer takes a card.\n";
+			@dealerhand=&dealcard(@dealerhand);
+			&displayhand("dealer",@dealerhand);
+			$dealertotal=&handvalue(@dealerhand);
+			print "Dealer's total: $dealertotal.\n";
+		}
+		else # 17
+		{
+			if ($soft_hand==1 and $dealer_hit_s17==1)
+			{
+				print "\n";
+				print "Dealer takes a card.\n";
+				@dealerhand=&dealcard(@dealerhand);
+				&displayhand("dealer",@dealerhand);
+				$dealertotal=&handvalue(@dealerhand);
+				print "Dealer's total: $dealertotal.\n";
+			}
+			else
+			{
+				print "Dealer stands.\n";
+				print "\n";
+				$dealerdone=1;
+			}
+
+		}
+	}
+	if ($dealerbj==1)
+	{
+		print "Dealer had blackjack. You lose.\n";
+		# Handle insurance bets here.
+	}
+	elsif ($playerbust==1)
+	{
+		print "You busted. You lose.\n"; # money is already gone
+	}
+	elsif ($playerbj==1)
+	{
+		print "You had blackjack. You win.\n";
+		$wallet+=$bet; # get back original bet
+		$wallet+=int($bet*$bj_mult); # plus blackjack bonus
+	}
+	elsif ($playertotal == $dealertotal)
+	{
+		print "You have $playertotal. Dealer has $dealertotal. A push.\n";
+		$wallet+=$bet; # get back original bet
+	}
+	elsif (($playertotal>$dealertotal) or ($dealerbust==1))
+	{
+		print "You have $playertotal. Dealer has $dealertotal. You win.\n";
+		$wallet+=$bet*2; # get back original bet plus normal win
+	}
+	else
+	{
+		print "You have $playertotal. Dealer has $dealertotal. You lose.\n";
+		# money's already been taken
+	}
+}
+if ($wallet >= $min_bet)
+{
+	print "You started with $starting_wallet. You're leaving with $wallet.\n";
+	if ($wallet > $starting_wallet)
+	{
+		print "You won. Congratulations!\n";
+	}
+	elsif ($wallet == $starting_wallet)
+	{
+		print "Leaving no worse off than you entered. That's still beating the odds.\n";
+	}
+	else
+	{
+		print "You lost. That's why they call it gambling.\n";
+	}
+}
+else
+{
+	print "The minimum bet is $min_bet, but you only have $wallet.\n";
+	print "You've lost badly. Goodbye...\n";
+}
+

@@ -1,0 +1,15 @@
+#!/usr/bin/perl
+#
+#	mixed
+#
+	
+$value = 50;
+$increment = "10 + 1/2";
+$value = $value + $increment;
+print "$value\n";			
+	
+$value = "10" + "20";
+print "$value\n";			
+	
+$value = $value + eval($increment);
+print "$value\n";			

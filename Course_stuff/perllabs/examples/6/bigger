@@ -1,0 +1,25 @@
+#!/usr/bin/perl
+#
+#       bigger
+#
+
+sub bigger
+{
+        if ( $_[0] > $_[1])
+        {
+                $_[0];
+        }
+        else
+        {
+                $_[1];
+        }
+}
+
+$a = 5;
+$b = 10;
+$ans = &bigger($a, $b);
+print "Larger of $a and $b is $ans\n";
+
+print "Larger is ", &bigger($a * 2, $b - 5);
+
+

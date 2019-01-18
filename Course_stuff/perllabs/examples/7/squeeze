@@ -1,0 +1,11 @@
+#!/usr/bin/perl
+#
+#       squeeze alphas
+#       example: mississippi -> misisipi
+
+while(<STDIN>)
+{
+        tr/a-zA-Z//s;
+        print;
+}
+

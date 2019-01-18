@@ -1,0 +1,15 @@
+#!/usr/bin/perl
+#
+#       beginning
+#
+
+print "Hello\n";
+
+sub BEGIN 
+{
+    print "From the BEGIN block\n";
+    push(@INC, "newdir");
+}
+
+
+

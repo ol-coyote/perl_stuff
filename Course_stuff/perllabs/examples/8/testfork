@@ -1,0 +1,13 @@
+#!/usr/bin/perl
+#
+#	testfork
+#
+
+if ($x = fork) 
+{
+    print "parent: return value is $x\n";
+}
+else 
+{
+    print "child : return value is $x\n";
+}

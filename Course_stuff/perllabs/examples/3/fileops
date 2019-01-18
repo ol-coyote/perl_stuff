@@ -1,0 +1,28 @@
+#!/usr/bin/perl
+#
+#       fileops
+#
+
+while(1) {
+
+    print "\nEnter a file name (or 'quit'): ";
+    $filename = <STDIN>;
+    chop($filename);
+
+    if ($filename eq 'quit') {
+        last;
+    }
+
+    print "$filename ";
+
+    if (! -e $filename) {
+        print "does not exist\n";
+    } elsif (-d $filename) {
+        print "is a directory\n";
+    } elsif (-T $filename) {
+        print "is a text file\n";
+    } elsif (-B $filename) {
+        print "is a binary file\n";
+    }
+}
+

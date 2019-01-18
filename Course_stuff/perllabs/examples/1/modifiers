@@ -1,0 +1,13 @@
+#!/usr/bin/perl
+#
+#	modifiers
+#
+
+$x = 50;
+$y = 10;
+
+print "A " if $x > $y;
+print "B " unless $x < $y;
+print "C " while $y++ < $x;
+print "D " until $x > $y--;
+

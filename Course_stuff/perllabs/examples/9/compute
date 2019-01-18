@@ -1,0 +1,30 @@
+#!/usr/bin/perl
+#
+#	compute
+#
+sub square
+{
+	$_[0] * $_[0];
+}
+
+sub cube
+{
+	$_[0] * $_[0] * $_[0];
+}
+
+sub compute
+{
+	my($array,$function) = @_;
+	foreach $item (@$array) 
+        {
+		$item = &$function($item);
+	}
+}
+
+@values = (10,20,30);
+compute(\@values,\&square);
+print "@values\n";
+
+@data = (5,6,7);
+compute(\@data,\&cube);
+print "@data\n";

@@ -1,0 +1,15 @@
+#!/usr/bin/perl
+#
+#	courses
+#
+%courses = 	(
+		'mike' => 	[Cpp, Java, Perl],
+ 	 	'alan' => 	[OOAD, Java, UML],
+		'roger'=>	[UNIX, C, Cpp]
+		);
+print @{$courses{'mike'}}, "\n";
+foreach $key (keys(%courses))
+{
+	print @{$courses{$key}}, "\n";
+}
+

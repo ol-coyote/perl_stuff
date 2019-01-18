@@ -1,0 +1,17 @@
+#!/usr/bin/perl
+#
+#	signals
+#
+
+sub my_sub
+{
+    print "This is a response to the INTERRUPT signal\n";
+}
+
+$SIG{INT} = 'my_sub';
+
+while (1)
+{
+    sleep 2;
+    print `date`;
+}

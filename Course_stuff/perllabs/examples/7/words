@@ -1,0 +1,12 @@
+#!/usr/bin/perl
+#
+#	words
+#
+
+while(<STDIN>)
+{
+	tr/A-Za-z/\n/cs;	# one word per line
+	print;
+}
+
+

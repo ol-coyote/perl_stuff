@@ -1,0 +1,6 @@
+#!/usr/bin/perl
+#
+#	welcome
+#
+print "Welcome to the Perl class.\n";
+print "We know you will enjoy it.\n";

@@ -1,0 +1,28 @@
+#!/usr/bin/perl
+#
+#    substrings
+#
+
+print "-> starting at 0\n";
+for ($i = 0; $i < 3; $i++)
+{
+    $line = "Perl is fun";
+    substr($line, 0, $i) = "12";
+    print "$line\n";
+}
+
+print "-> starting at 1\n";
+for ($i = 0; $i < 3; $i++) 
+{
+    $line = "Perl is fun";
+    substr($line, 1, $i) = "12";
+    print "$line\n";
+}
+
+print "-> starting at -3\n";
+for ($i = 0; $i < 3; $i++) 
+{
+    $line = "Perl is fun";
+    substr($line, -3, $i) = "12";
+    print "$line\n";
+}

@@ -1,0 +1,14 @@
+#!/usr/bin/perl
+#
+#	numbers
+#
+print "Input a number: ";
+$n1 = <STDIN>;
+chop($n1);
+
+print "Input another: ";
+$n2 = <STDIN>;	
+chop($n2);
+
+print "$n1 * $n2 is ",  $n1 * $n2, "\n";
+print "$n1 + $n2 is ",  $n1 + $n2, "\n";

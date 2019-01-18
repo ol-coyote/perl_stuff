@@ -1,0 +1,17 @@
+#!/usr/bin/perl
+#
+#       autoloadtest
+#
+
+sub AUTOLOAD
+{
+    print "Failed to find $AUTOLOAD\n";
+    print "Args are @_\n\n";
+}
+
+sub1();
+sub2(1, 2.3, "jello");
+
+print "End of program\n";
+
+

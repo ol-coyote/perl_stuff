@@ -1,0 +1,12 @@
+#!/usr/bin/perl
+#
+#	arginfo
+#
+
+print "@ARGV\n";		# list of all the args
+print "$0\n";			# name of Perl script
+print "$ARGV[0]\n";	 	# first argument
+print "$ARGV[$#ARGV]\n";	# last argument
+print "$#ARGV\n";		# index of the last arg
+$args = $#ARGV + 1;	 
+print "$args\n";		# number of args

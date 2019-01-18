@@ -1,0 +1,16 @@
+#!/usr/bin/perl
+#
+#	complexhash
+#
+while ( <STDIN> )
+{
+	($name, $product, $amt) = split;
+	$revenues{$name}{$product} += $amt;
+}
+while (($name, $hash) = each(%revenues))
+{
+	while(($prod, $amt) = each(%$hash))
+	{
+		print "$name: $prod $amt\n";
+	}
+}

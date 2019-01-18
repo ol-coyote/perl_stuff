@@ -1,0 +1,15 @@
+#!/usr/bin/perl
+#
+#       appendto
+#
+
+print "Enter a file name -> ";
+$filename = <STDIN>;
+chop($filename);
+
+print "enter the text -> ";
+$aline = <STDIN>;
+
+open(OUTFILE, ">> $filename");
+print OUTFILE $aline;
+close OUTFILE;

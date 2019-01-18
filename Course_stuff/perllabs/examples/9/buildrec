@@ -1,0 +1,14 @@
+#!/usr/bin/perl
+#
+#	buildrec
+#
+sub initialize
+{
+	my($name,$age) = @_;
+	my($rec) = { 	name => $name,
+		  	age => $age
+	};
+	$rec;
+}
+$a = initialize("mike",54);
+print $a -> {name}, "\n";

@@ -1,0 +1,17 @@
+#!/usr/bin/perl
+#
+#	forkexec
+#
+
+if ($x = fork)
+{
+    print "Parent: return value is $x\n";
+    wait;
+}
+else 
+{
+    print "Executing 'date' in 2 seconds\n";
+    sleep 2;
+    exec "date";
+    print "Should not get here\n";
+}

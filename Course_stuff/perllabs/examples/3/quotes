@@ -1,0 +1,19 @@
+#!/usr/bin/perl
+#
+#       quotes
+#
+
+$a = "Hello";
+
+print "The value of \$a is $a\n";
+print 'The value of \$a is $a\n';
+
+print "\n";
+print "A word in quotes: \"a word\"";
+print "\n";
+print qq/A word in quotes: "a word"/;
+
+print "\n";
+print 'A word in quotes: \'a word\'';
+print "\n";
+print q/A word in quotes: 'a word'/;

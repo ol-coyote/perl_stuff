@@ -1,0 +1,26 @@
+#!/usr/bin/perl
+#
+#	simplesub2
+#
+		
+sub sum
+{
+    $result = 0;
+    foreach (@_)
+    {
+        $result += $_;
+    }
+    return $result;
+}
+
+$a = 10;
+$b = 7;
+$c = sum($a, $b);
+print "The sum of $a and $b is $c\n";
+
+$d = sum($a, $b, $c);
+print "The sum of $a, $b, and $c is $d\n";
+
+$e = sum(1..100);
+print "The sum of the numbers between ";
+print "1 and 100 is $e\n";		

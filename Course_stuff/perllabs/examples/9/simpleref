@@ -1,0 +1,11 @@
+#!/usr/bin/perl
+#
+#	simpleref
+#
+$data = 20;
+$rdata = \$data;
+print "$data\n";
+print "$rdata\n";
+print "$$rdata\n";
+$$rdata = 50;
+print "$data\n";

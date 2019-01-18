@@ -1,0 +1,12 @@
+#!/usr/bin/perl
+#
+#    calc
+#
+
+while (<STDIN>) 
+{
+    print eval "$_", "\n";
+    print $@ if $@;            # $@ is set to the error
+                               #  message from eval			
+}			 
+

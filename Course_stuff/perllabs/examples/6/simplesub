@@ -1,0 +1,15 @@
+#!/usr/bin/perl
+#
+#	simplesub
+#
+		
+sub sum
+{
+    $result = $_[0] + $_[1];
+    return $result;
+}
+
+$a = 10;
+$b = 7;
+$c = sum($a, $b);
+print "The sum of $a and $b is $c\n";		

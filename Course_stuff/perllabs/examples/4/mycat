@@ -1,0 +1,12 @@
+#!/usr/bin/perl
+#
+#	mycat
+#
+while(<ARGV>)
+{
+    print "$ARGV: $.:\t$_";
+    if ( eof ) {
+        print "END OF FILE ON $ARGV\n";
+        close(ARGV);
+    }
+}

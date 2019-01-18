@@ -1,0 +1,7 @@
+#!/usr/bin/perl
+#
+#       getname
+#
+print "Enter your name: ";
+$name = <STDIN>;
+print "You entered $name as your name.\n";

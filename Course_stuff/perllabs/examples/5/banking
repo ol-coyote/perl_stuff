@@ -1,0 +1,22 @@
+#!/usr/bin/perl
+#
+#	banking
+#
+
+while(1)
+{
+    print "Enter name (or 'quit'): ";
+    chop ($name=<STDIN>);
+
+    last if $name eq "quit";
+
+    print "Enter deposit: ";
+    chop ($deposit = <STDIN>);
+
+    $accounts{$name} += $deposit;
+}
+
+while(($name, $val) = each(%accounts))
+{
+    print "$name $val\n";
+}

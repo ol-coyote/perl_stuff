@@ -1,0 +1,32 @@
+#!/usr/bin/perl
+#
+#	queue
+#
+
+@queue = ();
+
+while(1)
+{
+    print "\nQueue is: (@queue)\n";
+    print "1) Add\n2) Remove\n3) Exit\n";
+    print "Enter choice -> ";
+    $ans = <STDIN>;
+    last if ($ans == 3); 
+       
+    if ($ans == 1)
+    {
+        print "Enter an integer -> ";
+        $val = <STDIN>;
+        chop($val);
+        push(@queue, $val);
+    }
+    elsif ($ans == 2)
+    {
+        print "Removing: ", shift(@queue), "\n";
+    }
+    else
+    {
+       print "ILLEGAL CHOICE\n";
+    } 
+}
+

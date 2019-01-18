@@ -1,0 +1,26 @@
+#!/usr/bin/perl
+#
+#	copyfiles
+#
+
+die "usage: $0 dirname\n" if $#ARGV != 0;
+
+opendir(DIRECT,$ARGV[0]) || die;
+
+@files = readdir(DIRECT);
+chdir ($ARGV[0]);
+
+foreach $file (@files)  
+{
+    if (-T $file){
+        open(TEXTFILE,"< $file") || die;
+        print "COPYING $file\n";
+        print while(<TEXTFILE>);
+        print "END COPYING $file\n";
+        close(TEXTFILE);
+    }
+    else 
+    {
+        print "$file is not a textfile\n";
+    }
+}

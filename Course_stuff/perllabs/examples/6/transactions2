@@ -1,0 +1,21 @@
+#!/usr/bin/perl
+#
+#	transactions2
+#
+		
+$NAME="this is the main package\n";
+
+use Banking;
+
+Banking::deposit(50);
+Banking::withdraw(50);
+print "$Banking::NAME\n";
+
+package Banking;		# switch namespaces
+deposit(50);
+withdraw(50);
+print "$NAME\n";
+print "$main::NAME";		# now need to qualify
+
+package main;			# switch back to main
+print "$NAME";

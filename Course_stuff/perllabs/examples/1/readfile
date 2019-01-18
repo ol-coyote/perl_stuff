@@ -1,0 +1,13 @@
+#!/usr/bin/perl
+#
+# readfile
+#
+print "Enter a filename ";
+$filename = <STDIN>;
+chop($filename);
+
+open(INPUTFILE, "< $filename");
+$firstline = <INPUTFILE>;
+print "Line is: $firstline";
+
+close INPUTFILE

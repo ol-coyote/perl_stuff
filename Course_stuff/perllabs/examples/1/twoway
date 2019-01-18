@@ -1,0 +1,16 @@
+#!/usr/bin/perl
+#
+#	twoway
+#
+print "Enter a number: ";
+$num = <STDIN>;
+chop($num);
+
+if ($num == 0) 
+{
+    print "You entered zero.\n"
+}
+else 
+{
+    print "You entered a non-zero value.\n";
+}

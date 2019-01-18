@@ -1,0 +1,19 @@
+#!/usr/bin/perl
+#
+#	factorial
+#
+		
+sub factorial
+{
+	$result = 1;
+	while($_[0] > 1) {
+		$result *= $_[0];
+		$_[0]--;
+	}
+	return $result;
+}
+
+print "Enter a number  - > ";
+chop($number = <STDIN>);
+$answer = &factorial($number);
+print "$number factorial is $answer\n";		

@@ -1,0 +1,12 @@
+#!/usr/bin/perl
+#
+#	arrayref
+#
+@values = ( 10, 20, 30);
+$rvalues = \@values;
+for ( $i = 0; $i < @$rvalues; $i++)
+{
+	print "$$rvalues[$i]\n";
+}
+@$rvalues = (120,130,140);
+print "@values\n";

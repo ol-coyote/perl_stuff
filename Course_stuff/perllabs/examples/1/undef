@@ -1,0 +1,7 @@
+#!/usr/bin/perl
+#
+#       undef
+#
+
+print "The value of an uninitialized ";
+print "variable is |$a|\n";

@@ -1,0 +1,8 @@
+#!/usr/bin/perl
+#
+#       getname2
+#
+print "Enter your name: ";
+$name = <STDIN>;
+chop($name);
+print "You entered $name as your name.\n";

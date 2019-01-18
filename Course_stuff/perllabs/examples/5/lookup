@@ -1,0 +1,16 @@
+#!/usr/bin/perl
+#
+#	lookup
+#
+
+%accounts = (
+             "mike" => 100,
+             "tom"  => 200,
+             "jane" => 300
+            );
+
+print "enter a name ";
+$name = <STDIN>;	
+chop($name);
+
+print "$name\'s balance is $accounts{$name}\n";

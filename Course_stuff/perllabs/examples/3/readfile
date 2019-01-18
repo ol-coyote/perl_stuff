@@ -1,0 +1,16 @@
+#!/usr/bin/perl
+#
+#       readfile
+#
+print "Enter a file name -> ";
+$fn = <STDIN>;
+chop($fn);
+
+print "Reading from $fn ...\n";
+
+open(INPUTFILE, "< $fn");
+while(<INPUTFILE>)
+{
+    print "$. $_";     # $. is the line number
+}
+close INPUTFILE;

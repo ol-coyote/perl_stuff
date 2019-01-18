@@ -1,0 +1,28 @@
+#!/usr/bin/perl
+#
+#       numsort
+#
+
+sub numcmp 
+{
+    if ($a < $b) 
+    {
+        return -1;
+    }
+    elsif ($a == $b) 
+    {
+       return 0;
+    }
+    else 
+    {
+        return 1;
+    }
+}
+
+@numbers = (10, 20, 40, 30, -5, 100);
+@res =  sort (@numbers);
+print "@res\n";
+
+@res =  sort numcmp (@numbers);
+print "@res\n";
+

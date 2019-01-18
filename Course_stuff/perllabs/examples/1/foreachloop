@@ -1,0 +1,16 @@
+#!/usr/bin/perl
+#
+#	foreachloop
+#
+
+@list = (1..1000);
+$sum = 0;
+
+foreach $item (@list)
+{
+    $sum += $item;
+}
+
+print "Sum = $sum\n";
+
+

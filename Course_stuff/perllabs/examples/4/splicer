@@ -1,0 +1,15 @@
+#!/usr/bin/perl
+#
+#       splicer
+#
+
+@candidates = ("Al", "Mary");
+@club = ("Mike", "Bob", "Jane", "Jill", "John");
+
+#  Remove positions 1 through 3 from club
+#  and replace them with candidates
+
+@result = splice(@club, 1, 3, @candidates);
+
+print "@result were removed from \@club\n";
+print "\@club is now @club\n";

@@ -1,0 +1,27 @@
+#!/usr/bin/perl
+#
+#       next
+#
+
+$sum = 0;
+
+while (1)
+{
+    print "Enter a number (0 to quit): ";
+    $number = <STDIN>;
+    chop($number);
+
+    if ($number == 0 )
+    {
+        last;
+    }
+
+    if ($number % 2 == 0 )
+    {
+        next;
+    }
+
+    $sum += $number;
+}
+
+print "\nSum of the odd numbers is $sum\n";

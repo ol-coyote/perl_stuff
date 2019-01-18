@@ -1,0 +1,13 @@
+#!/usr/bin/perl
+#
+#       pipetowc
+#
+
+open(WC, "| wc") || die;
+
+print WC "this is line 1\n";
+print WC "this is line 2\n";
+print WC "this is line 3\n";
+print WC "this is line 4\n";
+
+close(WC);

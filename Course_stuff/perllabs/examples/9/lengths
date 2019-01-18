@@ -1,0 +1,30 @@
+#!/usr/bin/perl
+#
+#	lengths
+#
+
+sub lengths
+{
+	my(@ans);
+	foreach $array (@_)
+	{
+		push(@ans, scalar(@$array));
+	}
+	@ans;
+}
+
+@v1 = (10, 20, 30, 40, 50, 60);
+@v2 = (10, 20, 30, 40, 50);
+@v3 = (10, 20, 30, 40);
+@results = lengths(\@v1, \@v2, \@v3);
+print "@results\n";		# prints 6 5 4
+
+@v1 = (10, 20, 30, 40,50,60);
+$r1 = \@v1;
+@v2 = (10, 20, 30, 40,50);
+$r2 = \@v2;
+@v3 = (10, 20, 30, ,40);
+$r3 = \@v3;
+@results = lengths($r1, $r2, $r3);
+print "@results\n"; 		#  prints 6 5 4
+			

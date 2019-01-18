@@ -1,0 +1,30 @@
+#!/usr/bin/perl
+#
+#	getrec
+#
+sub getrec 
+{
+	my($name,$age,$city) = @_;
+	my($emp)  = { 	
+		name => $name,
+    		age => $age,
+             	city => $city
+        };
+	return $emp;
+}
+
+print "enter name age and city ";
+while(<STDIN>)
+{
+	$info = getrec(split);
+        push(@list, $info);
+	print "enter name age and city ";
+}
+while(@list)
+{
+       $x =  pop(@list);
+       print "\n\nNAME -> $x->{name}\n";
+       print "AGE  ->   $x->{age}\n";
+       print "CITY ->   $x->{city}\n";
+       print "--------------\n";
+}

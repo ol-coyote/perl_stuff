@@ -1,0 +1,13 @@
+#!/usr/bin/perl
+while(1)
+{	
+	print "Enter a string: ";
+	$_ = <STDIN>;
+       	last if ( /^quit$/i );
+       	$total = 0;
+       	while(/([+-]?\d+)/g)
+	{
+               $total += $1;
+	}
+       	print "$total\n";
+}

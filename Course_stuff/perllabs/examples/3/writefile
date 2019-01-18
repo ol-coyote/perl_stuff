@@ -1,0 +1,15 @@
+#!/usr/bin/perl
+#
+#       writefile
+#
+
+print "Enter a file name -> ";
+$fn = <STDIN>;
+chop($fn);
+
+print "Writing to file: $fn\n";
+
+open(OUTFILE, "> $fn");
+print OUTFILE "writing line 1 to $fn\n";
+print OUTFILE "writing line 2 to $fn\n";
+close OUTFILE;

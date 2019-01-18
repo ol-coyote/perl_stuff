@@ -1,0 +1,52 @@
+# Options file for the blackjack program.
+# Any line starting with a # is a comment.
+# No inline comments allowed!
+
+# Start with this much money. Pretty arbitrary.
+$starting_wallet=200;
+
+# Minimum bet. Pretty arbitrary.
+$min_bet=5;
+
+# Define how many decks are in the shoe. More decks makes it
+# harder to count cards. Must have at least 1, of course;
+# most casinos draw the line at 8.
+$numdecks=1;
+
+# At this percentage, the shoe is reshuffled. This is a whole number,
+# usually in the range of 15-30.
+$shoe_threshold=20;
+
+# Blackjack payoff. Most casinos pay 3:2 (multiplier of 1.5). Some
+# only pay 1:1. We're not (yet) dealing with the uncommon European
+# "en prison" system.
+$bj_mult=1.5;
+
+# How the dealer handles a "soft" (with an ace) 17. Most casinos have
+# the dealer take a card. Forcing a stand here favors the player.
+$dealer_hit_s17=1;
+
+# Determines when the dealer checks for blackjack. Some casinos have
+# the dealer check before any player action is taken, which precludes
+# insurance bets. This is irrelevant if there is no insurance.
+$dealer_bj_first=0;
+
+# Double down functionality isn't in the program yet. However...
+# Set to 0 to disallow. Set to 1 for conventional doubling down on a
+# 10 or 11. Set to 2 to allow doubling down on any starting hand.
+$allow_double=0;
+
+# Split functionality isn't in the program yet. However...
+# Set to 0 to disallow. Set to 1 for a single split. Set to 2 for
+# infinite resplitting.
+$allow_split=0;
+
+# This one is irrelevant if splitting is not allowed. Set to 1 to
+# allow splitting on non-identical 10s (a 10 and a K, for instance).
+$allow_10_diff_split=0;
+
+# Insurance isn't in the program yet. However...
+# Set to 0 to disallow. Set to 1 to have insurance available when
+# the dealer shows an initial ace.
+$allow_insurance=0;
+

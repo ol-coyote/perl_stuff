@@ -1,0 +1,11 @@
+#!/usr/bin/perl
+#
+#       delete
+#
+
+while(<STDIN>)
+{
+        tr/0-9//d;
+        print;
+}
+

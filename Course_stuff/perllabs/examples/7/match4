@@ -1,0 +1,9 @@
+#!/usr/bin/perl
+#
+#       match4
+#
+
+while(<STDIN>)
+{
+    print if ( /^........\....$/ )
+}

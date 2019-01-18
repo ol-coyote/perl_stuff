@@ -1,0 +1,11 @@
+#!/usr/bin/perl
+#
+#       functionstest
+#
+require "functions.pl";
+
+$a = 30;
+$b = 20;
+
+print &mult($a, $b), "\n";
+print &div($a, $b), "\n";

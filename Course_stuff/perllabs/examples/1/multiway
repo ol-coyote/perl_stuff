@@ -1,0 +1,25 @@
+#!/usr/bin/perl
+#
+#	twoway
+#
+print "Enter hour of day (0-23): ";
+$hour = <STDIN>;
+chop($hour);
+
+if ($hour < 12) 
+{
+    print "Morning\n";
+}
+elsif ($hour < 18)
+{
+    print "Afternoon\n";
+}
+elsif ($hour < 24) 
+{ 
+    print "Evening\n";
+}
+else 
+{
+    print "Illegal Time\n";
+}
+

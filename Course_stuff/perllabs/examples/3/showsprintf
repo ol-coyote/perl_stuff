@@ -1,0 +1,12 @@
+#!/usr/bin/perl
+#
+#	showsprintf
+#
+
+$i = 20;
+$m = hello;
+$f = "25.453";
+
+$newstring = sprintf("%3d %s %.2f\n", $i, $m, $f);
+
+print "$newstring\n";

@@ -1,0 +1,14 @@
+#!/usr/bin/perl
+#
+#       stdfuncs
+#
+
+require "ctime.pl";
+require "getcwd.pl";
+
+$x = &ctime(time);    # time is a built-in Perl function
+print $x;             # date in UNIX format
+
+$cwd = &getcwd;	      # current directory
+print "$cwd\n";
+

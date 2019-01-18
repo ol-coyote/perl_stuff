@@ -1,0 +1,19 @@
+#!/usr/bin/perl
+#
+#	arrays
+#
+@v =  (10, 20, 30);
+$refv =  \@v;
+print "$$refv[0]\n";
+print "$refv->[0]\n";
+#
+#	Hashes
+#
+%names =  (	"The Kid" => 	  "Ted Williams",
+	   	"The Babe" => 	  "Babe Ruth",
+		"The Iron Horse"=> "Lou Gehrig"
+	  );
+$rnames = \%names;
+print $$rnames{"The Kid"}, "\n";
+print $rnames->{"The Kid"}, "\n";
+

@@ -1,0 +1,13 @@
+#!/usr/bin/perl
+#
+#       pipefromtr
+#
+
+open(TR, "tr '[a-z]' '[A-Z]' < datafile |") || die;
+
+while(<TR>)
+{
+        print;          # remember $_;
+}
+
+close(TR);

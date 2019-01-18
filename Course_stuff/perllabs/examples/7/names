@@ -1,0 +1,10 @@
+#!/usr/bin/perl
+#
+#       names
+#
+
+$names = "hello there";
+print "$names before\n";
+$howmany = $names =~ tr/efgh/EFGH/;
+print "$names after\n";
+print "$howmany\n";

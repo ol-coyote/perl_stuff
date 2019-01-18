@@ -1,0 +1,77 @@
+#!/usr/bin/perl
+srand();
+GAME: while(1)
+{
+	printf "%30s", "WANT TO PLAY SOME BLACK JACK? ";
+	$r = <STDIN>;
+	last if $r =~ /^[Nn]$/;
+	$first = int(rand(13)) + 1 ;
+	$first = 10 if $first > 10;
+	$second = int(rand(13)) + 1 ;
+	$second = 10 if $second > 10;
+	@you = ($first, $second);
+	$ysum = $you[0] + $you[1];
+	printf "%30s",  "YOU HOLD: @you = $ysum\n";
+	$first = int(rand(13)) + 1 ;
+	$first = 10 if $first > 10;
+	$second = int(rand(13)) + 1 ;
+	$second = 10 if $second > 10;
+	@dealer = ($first, $second);
+	$dsum = $dealer[0] + $dealer[1];
+	printf "%30s",  "DEALER HOLDS: @dealer = $dsum\n";
+	while(1) {
+		printf "%30s", "DO YOU WANT A HIT? ";
+		$r = <STDIN>;
+		last if $r =~ /^[Nn]$/;
+		$hit = int(rand(13)) + 1 ;
+		$hit = 10 if $hit > 10;
+		$ysum += $hit;
+		if ($ysum > 21) {
+			printf "%30s", "YOU DREW $hit: BUSTED\n";
+			printf "%30s", "SCHUFFLING...\n";
+			sleep 5;
+			$d++;
+			printf "%30s", "TO DATE: YOU: ($y): DEALER: ($d)\n";
+			next GAME;
+		}
+		push(@you, $hit);
+		printf "%30s", "NOW YOU HOLD @you = $ysum\n";
+	}
+	while($dsum < 17) {
+		printf "%30s", "DEALER TAKES A HIT\n";
+		$hit = int(rand(13)) + 1 ;
+		$hit = 10 if $hit > 10;
+		printf "%30s", "DEALER DREW A $hit\n";
+		$dsum += $hit;
+		printf "%30s\n", "DEALER NOW HAS $dsum";
+		if ($dsum > 21) {
+			sleep 3;
+			printf "%30s", "DEALER BUSTS\n";
+			$y++;
+			printf "%30s", "SCORE-> YOU: ($y): DEALER ($d)\n";
+			printf "%30s", "SCHUFFLING...\n";
+			sleep 5;
+			next GAME;
+		}
+		push(@dealer, $hit);
+		sleep 3;
+		printf "%30s\n", "DEALER HOLDS @dealer = $dsum";
+	}
+	printf "%30s\n", "DEALER HAS $dsum: YOU HAVE $ysum";
+	print "IT'S A WASH\n" if  $dsum == $ysum;
+	if ( $dsum > $ysum ) {
+		$d++;
+		printf "%30s", "DEALER WINS\n";
+	}
+	if ( $ysum > $dsum ) {
+		$y++;
+		printf "%30s\n", "YOU WIN";
+	}
+	printf "%30s\n", "TO DATE: YOU: ($y): DEALER: ($d)";
+	sleep 4;
+}
+printf "%30s\n", "*****************************";
+printf "%30s\n", "******** GAME OVER **********";
+printf "%30s\n", "******** GAME OVER **********";
+printf "%30s\n", "*****************************";
+printf "%30s\n", "YOU WON ($y): DEALER WON ($d)\n";

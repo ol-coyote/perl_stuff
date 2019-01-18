@@ -1,0 +1,15 @@
+#!/usr/bin/perl
+#
+#	reverse
+#
+@begin = (1,2,3,4,5,6,7);
+@end = ();
+$howmany=@begin;
+while( $howmany > 0 ) {
+	print "begin = @begin\n";
+	print "end   = @end\n";
+	push(@end, pop(@begin));
+	$howmany = @begin;
+}	
+print "begin = @begin\n";
+print "end   = @end\n";

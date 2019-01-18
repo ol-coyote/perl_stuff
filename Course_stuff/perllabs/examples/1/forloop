@@ -1,0 +1,16 @@
+#!/usr/bin/perl
+#
+#	forloop
+#
+
+print "POWERS OF 2\n\n";
+
+for ($i = 1; $i <= 16; $i = $i + 1)
+{
+    $power = 2 ** $i;
+    print "$i\t$power\n";
+}
+
+print "\nFinal value of \$i is $i\n";
+
+

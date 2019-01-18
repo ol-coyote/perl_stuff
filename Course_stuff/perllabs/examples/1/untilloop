@@ -1,0 +1,15 @@
+#!/usr/bin/perl
+#
+#	untilloop
+#
+
+$i = 1;
+$sum = 0;
+
+until ($i > 10)
+{
+    $sum += $i++;
+}
+
+print "Sum = $sum\n";
+

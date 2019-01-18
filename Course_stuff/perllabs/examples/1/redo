@@ -1,0 +1,22 @@
+#!/usr/bin/perl
+#
+#       redo
+#
+print "Enter 3 grades between 0 and 100\n";
+
+for ($i = 1; $i <= 3; $i++)
+{
+    print "Grade Number $i: ";
+    $grade = <STDIN>;
+    chop ($grade);
+
+    if ($grade < 0 || $grade > 100)
+    {
+        print "Re-enter ";
+        redo;
+    }
+
+    print "Grade Number $i is $grade\n";
+}
+
+

@@ -1,0 +1,22 @@
+#!/usr/bin/perl
+#
+#	hashes
+#
+%names =  ("The Kid" => "Ted Williams",
+	   "The Babe" => "Babe Ruth",
+	   "The Iron Horse"=> "Lou Gehrig"
+	  );
+
+$rnames = \%names;
+
+#	print the entire hash - an unlikely event
+#
+print join("\n", %$rnames), "\n\n";
+	
+#	print all the keys - more likely
+#
+print join("\n",keys(%$rnames)), "\n\n";
+	
+#	print a value from a key - most likely
+#
+print $$rnames{"The Kid"}, "\n";
